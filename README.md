@@ -1,6 +1,6 @@
 # ncbi-acess
 
-This script it's a toolbox for automatic recovery information of [NCBI]([https://www.ncbi.nlm.nih.gov/](https://www.ncbi.nlm.nih.gov/)). 
+This script it's a toolbox to automatic recovery information of [NCBI]([https://www.ncbi.nlm.nih.gov/](https://www.ncbi.nlm.nih.gov/)). 
 
 ## Dependencies
 
@@ -29,7 +29,7 @@ Or to recovery cds not translated, just change fasta_cds_aa for fasta_cds_na
 Or to recovery in xml format, just insert the parameter -tf xml.
 
 ## Some considerations
-If you have and file with IDs from nucleotide sequences, you can't use this file in a protein database, and vice-versa. If you call help function, a table with which text formats are allowed per output type, and which output types are allowed per database. 
+If you have a file with IDs from nucleotide sequences, you can't use this file in a protein database, and vice-versa. If you call help function, a table with which text formats are allowed per output type, and which output types are allowed per database. 
 
 ## Disclaimer
 
