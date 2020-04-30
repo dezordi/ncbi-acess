@@ -1,11 +1,37 @@
 # ncbi-acess
 
-This script, in a first moment, receives an ID list (in a txt file), and return the CDS regions of each ID, in aminoacids.
+This script it's a toolbox for automatic recovery information of [NCBI]([https://www.ncbi.nlm.nih.gov/](https://www.ncbi.nlm.nih.gov/)). 
 
 ## Dependencies
 
-Bio (biopython)
-argparse
+This script was build on python 3.6.5+ and have only two dependencies:
 
+- [argparse 1.1](https://docs.python.org/3/library/argparse.html)
+- [Bio (biopython) 1.76](https://biopython.org/)
 
-under development.
+## Recomended lectures
+- [biopython.Entrez](https://biopython.org/docs/1.74/api/Bio.Entrez.html): To understand the basic sintax.
+- [ncbi Entrez ebook](https://www.ncbi.nlm.nih.gov/books/NBK25499/): To check the databases, output types and file formats that entrez can access.
+## Usage
+- To recovery genbank information from nucleotide sequences:
+> python ncbi_seq_retrieve.py -in file_with_access_ids.txt -db nucleotide -ot gb
+
+Or to recovery in xml format, just insert the parameter -tf xml.
+
+- To recovery cds translated to aminoacids from nucleotide sequences:
+> python ncbi_seq_retrieve.py -in file_with_acess_ids.txt -db nucleotide -ot fasta_cds_aa
+
+Or to recovery cds not translated, just change fasta_cds_aa for fasta_cds_na
+
+- Finally, to recovery nucleotide of aminoacid sequences
+> python ncbi_seq_retrieve.py -in file_with_acess_ids.txt -db (nucleotide or protein) -ot fasta
+
+Or to recovery in xml format, just insert the parameter -tf xml.
+
+## Some considerations
+If you have and file with IDs from nucleotide sequences, you can't use this file in a protein database, and vice-versa. If you call help function, a table with which text formats are allowed per output type, and which output types are allowed per database. 
+
+## Disclaimer
+
+- I'm not a computer engineer or some related profession, I'm just write this script to study python and to automatize some bioinformatics tasks. So fell free to commit changes that makes the code more efficient or more clean.
+- This script will continue to be developed to englobe others functions, like recovery taxonomy information of sequences and features of sequences, for example.
