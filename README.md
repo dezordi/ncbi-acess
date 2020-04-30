@@ -23,11 +23,13 @@ Or to recovery in xml format, just insert the parameter -tf xml.
 
 Or to recovery cds not translated, just change fasta_cds_aa for fasta_cds_na
 
-- Finally, to recovery nucleotide of aminoacid sequences
+- To recovery nucleotide of aminoacid sequences
 > python ncbi_seq_retrieve.py -in file_with_acess_ids.txt -db (nucleotide or protein) -ot fasta
 
 Or to recovery in xml format, just insert the parameter -tf xml.
 
+- To recovery taxonomy information of ncbi acess IDs
+> python ncbi_seq_retrieve.py -in file_with_acess_ids.txt -db (nucleotide or protein) -ot gb -tx True
 ## Some considerations
 If you have a file with IDs from nucleotide sequences, you can't use this file in a protein database, and vice-versa. If you call help function, a table with which text formats are allowed per output type, and which output types are allowed per database. 
 
