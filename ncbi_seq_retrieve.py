@@ -1,3 +1,6 @@
+#!/usr/bin/python3
+# -*- coding: utf-8 -*-
+
 from Bio import Entrez
 from Bio import SeqIO
 import argparse, time, re, sys, csv
@@ -23,15 +26,16 @@ protein_negative_list = ['fasta_cds_na','fasta_cds_aa']
 out_tax_name = read_file.rstrip('\n')
 if out_taxonomy == 'True':
     output_taxonomy = open(out_tax_name+'.tax.csv','w',newline='')
-writer_tax = csv.writer(output_taxonomy)
-writer_tax.writerow(["NCBI-Access", "Taxonomy-Access", "Superkingdom","Kingdom","Phylum","Class","Order","Family","Genus","Species"])
+    writer_tax = csv.writer(output_taxonomy)
+    writer_tax.writerow(["NCBI-Access", "Taxonomy-Access", "Superkingdom","Kingdom","Phylum","Class","Order","Family","Genus","Species"])
 
 #any(x in a_string for x in matches)
 if entrez_database == 'protein' and any(x in out_type for x in protein_negative_list):
     sys.exit("ERROR: Invalid options of output format for protein database")
 if 'fasta_cds' in out_type and text_format == 'xml':
     sys.exit("ERROR: Invalid options of text format for output type")
-Entrez.email = str(input('Digite your e-mail to access NCBI:'))
+#Entrez.email = str(input('Digite your e-mail to access NCBI:'))
+Entrez.email = 'zimmer.filipe2@gmail.com'
 
 def efetch_function(var_data,var_id,var_rettype,var_retmode):
     """
@@ -83,7 +87,7 @@ def efetch_function(var_data,var_id,var_rettype,var_retmode):
                 list_of_tax.append(species)
         writer_tax.writerow(list_of_tax)
     #ver uma forma de acelerar esse processo
-    return(list_of_lists)
+    return()
 
 
 #/db_xref="taxon:1608128"
