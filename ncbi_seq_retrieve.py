@@ -29,13 +29,12 @@ if out_taxonomy == 'True':
     writer_tax = csv.writer(output_taxonomy)
     writer_tax.writerow(["NCBI-Access", "Taxonomy-Access", "Superkingdom","Kingdom","Phylum","Class","Order","Family","Genus","Species"])
 
-#any(x in a_string for x in matches)
+
 if entrez_database == 'protein' and any(x in out_type for x in protein_negative_list):
     sys.exit("ERROR: Invalid options of output format for protein database")
 if 'fasta_cds' in out_type and text_format == 'xml':
     sys.exit("ERROR: Invalid options of text format for output type")
-#Entrez.email = str(input('Digite your e-mail to access NCBI:'))
-Entrez.email = 'zimmer.filipe2@gmail.com'
+Entrez.email = str(input('Digite your e-mail to access NCBI:'))
 
 def efetch_function(var_data,var_id,var_rettype,var_retmode):
     """
@@ -89,9 +88,6 @@ def efetch_function(var_data,var_id,var_rettype,var_retmode):
     #ver uma forma de acelerar esse processo
     return()
 
-
-#/db_xref="taxon:1608128"
-#/db_xref="CDD:278997"
 
 
 with open(read_file,'r+') as lst_terms:
