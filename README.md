@@ -23,7 +23,7 @@ Or to recovery in xml format, just insert the parameter -tf xml.
 
 Or to recovery cds not translated, just change fasta_cds_aa for fasta_cds_na
 
-- To recovery nucleotide of aminoacid sequences
+- To recovery nucleotide or aminoacid sequences
 > python ncbi_seq_retrieve.py -in file_with_acess_ids.txt -db (nucleotide or protein) -ot fasta
 
 Or to recovery in xml format, just insert the parameter -tf xml.
@@ -36,4 +36,4 @@ If you have a file with IDs from nucleotide sequences, you can't use this file i
 ## Disclaimer
 
 - I'm not a computer engineer or some related profession, I'm just write this script to study python and to automatize some bioinformatics tasks. So fell free to commit changes that makes the code more efficient or more clean.
-- This script will continue to be developed to englobe others functions, like recovery taxonomy information of sequences and features of sequences, for example.
+- This script will continue to be developed to englobe others functions, like recovery taxonomy information of terms and features of sequences, for example.
