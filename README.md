@@ -38,5 +38,4 @@ If you have a file with IDs from nucleotide sequences, you can't use this file i
 
 ## Disclaimer
 
-- I'm not a computer engineer or some related profession, I'm just write this script to study python and to automatize some bioinformatics tasks. So fell free to commit changes that makes the code more efficient or more clean.
-- This script will continue to be developed to englobe others functions, like recovery taxonomy information of sequences and features of sequences, for example.
+- This script will continue to be developed to englobe others functions, like features of sequences, for example.
