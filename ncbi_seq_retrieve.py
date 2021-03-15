@@ -1,6 +1,14 @@
 #!/usr/bin/python3
 # -*- coding: utf-8 -*-
 
+__author__ = "Filipe Z. Dezordi"
+__license__ = "GPL"
+__version__ = "0.0.2"
+__maintainer__ = "Filipe Z. Dezordi"
+__email__ = "zimmer.filipe@gmail.com"
+__date__ = "2021/03/15"
+__username__ = "dezordi"
+
 from Bio import Entrez
 from Bio import SeqIO
 import argparse, time, re, sys, csv
@@ -29,7 +37,7 @@ out_tax_name = read_file.rstrip('\n')
 if out_taxonomy == 'True' and out_host_taxonomy == 'True':
     output_taxonomy = open(out_tax_name+'.tax.csv','w',newline='')
     writer_tax = csv.writer(output_taxonomy)
-    writer_tax.writerow(["NCBI-Access", "Taxonomy-Access","Organism","Superkingdom","Kingdom","Phylum","Class","Order","Family","Genus","Species","Host_Phylum","Host_Class","Host_Order","Host_Family","Host_Genus","Host_name"])
+    writer_tax.writerow(["NCBI-Access", "Taxonomy-Access","Organism","Superkingdom","Kingdom","Phylum","Class","Order","Family","Genus","Species","Host_Phylum","Host_Class","Host_Order","Host_Family","Host_Genus","Host_species"])
 else:
     output_taxonomy = open(out_tax_name+'.tax.csv','w',newline='')
     writer_tax = csv.writer(output_taxonomy)
@@ -40,6 +48,7 @@ if entrez_database == 'protein' and any(x in out_type for x in protein_negative_
     sys.exit("ERROR: Invalid options of output format for protein database")
 if 'fasta_cds' in out_type and text_format == 'xml':
     sys.exit("ERROR: Invalid options of text format for output type")
+
 Entrez.email = str(input('Digite your e-mail to access NCBI:'))
 
 def efetch_function(var_data,var_id,var_rettype,var_retmode):
@@ -67,7 +76,7 @@ def efetch_function(var_data,var_id,var_rettype,var_retmode):
         handle_tax_name = re.sub(r'".*\]', '', handle_tax_name)
         handle_tax_data = Entrez.efetch(db="Taxonomy",id=handle_tax_var, retmode="xml")
         record_tax_data = Entrez.read(handle_tax_data)
-        superkingdom = kingdom = phylum = classe = order = family = genus = species = host_ph = host_cl = host_od = host_fm = host_gn = 'unknown'
+        superkingdom = kingdom = phylum = classe = order = family = genus = species = host_ph = host_cl = host_od = host_fm = host_gn = host_sp = 'unknown'
         try:
             for x in record_tax_data[0]["LineageEx"]:
                 if 'superkingdom' in x.values():
@@ -96,6 +105,8 @@ def efetch_function(var_data,var_id,var_rettype,var_retmode):
             handle_host_var = re.sub(r'".*\]','',handle_host_var)
             if "sp." in handle_host_var:
                 handle_host_var = re.sub(r" sp\.","", handle_host_var)
+            elif "unidentified" in handle_host_var:
+                handle_host_var = re.sub(r"unidentified\s","", handle_host_var)
             if handle_host_var == '[]':
                 handle_host_var = 'unknown'
             if handle_host_var != "unknown":
@@ -108,21 +119,34 @@ def efetch_function(var_data,var_id,var_rettype,var_retmode):
             try:
                 handle_host_data = Entrez.efetch(db="Taxonomy",id=handle_host_id_var, retmode="xml")
                 record_host_data = Entrez.read(handle_host_data)
+                #print(record_host_data)
                 for x in record_host_data[0]["LineageEx"]:
                     if 'phylum' in x.values():
                         host_ph = x['ScientificName']
+                    elif record_host_data[0]['Rank'] == 'phylum':
+                        host_ph = handle_host_var
                     if 'class' in x.values():
                         host_cl = x['ScientificName']
+                    elif record_host_data[0]['Rank'] == 'class':
+                        host_cl = handle_host_var
                     if 'order' in x.values():
                         host_od = x['ScientificName']
+                    elif record_host_data[0]['Rank'] == 'order':
+                        host_od = handle_host_var
                     if 'family' in x.values():
                         host_fm = x['ScientificName']
+                    elif record_host_data[0]['Rank'] == 'family':
+                        host_fm = handle_host_var
                     if 'genus' in x.values():
                         host_gn = x['ScientificName']
+                    elif record_host_data[0]['Rank'] == 'genus':
+                        host_gn = handle_host_var
+                    if record_host_data[0]['Rank'] == 'species':
+                        host_sp = handle_host_var
                 print(f"done host taxonomy for {var_data}: {var_id}",  end='')
             except:
                 print(f'error in host taxonomy step for {var_data}: {var_id}',  end='')
-            list_of_tax.append([out_name,handle_tax_var,handle_tax_name,superkingdom,kingdom,phylum,classe,order,family,genus,species,host_ph,host_cl,host_od,host_fm,host_gn,handle_host_var])
+            list_of_tax.append([out_name,handle_tax_var,handle_tax_name,superkingdom,kingdom,phylum,classe,order,family,genus,species,host_ph,host_cl,host_od,host_fm,host_gn,host_sp])
         else:
             list_of_tax.append([out_name,handle_tax_var,handle_tax_name,superkingdom,kingdom,phylum,classe,order,family,genus,species])
         writer_tax.writerows(list_of_tax)
