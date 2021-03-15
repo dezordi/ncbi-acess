@@ -30,6 +30,9 @@ Or to recovery in xml format, just insert the parameter -tf xml.
 
 - To recovery taxonomy information of ncbi acess IDs
 > python ncbi_seq_retrieve.py -in file_with_acess_ids.txt -db (nucleotide or protein) -ot gb -tx True
+
+- To recovery taxonomy information of host of ncbi acess IDs (ideal for viruses)
+> python ncbi_seq_retrieve.py -in file_with_acess_ids.txt -db (nucleotide or protein) -ot gb -tx True -th True
 ## Some considerations
 If you have a file with IDs from nucleotide sequences, you can't use this file in a protein database, and vice-versa. If you call help function, a table with which text formats are allowed per output type, and which output types are allowed per database. 
 
