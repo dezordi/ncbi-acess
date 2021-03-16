@@ -49,7 +49,7 @@ if entrez_database == 'protein' and any(x in out_type for x in protein_negative_
 if 'fasta_cds' in out_type and text_format == 'xml':
     sys.exit("ERROR: Invalid options of text format for output type")
 
-Entrez.email = str(input('Digite your e-mail to access NCBI:'))
+Entrez.email = str(input('Type your e-mail to access NCBI:'))
 
 def efetch_function(var_data,var_id,var_rettype,var_retmode):
     """
